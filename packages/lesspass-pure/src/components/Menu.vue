@@ -26,13 +26,16 @@
           </span>
           <span class="white-link"
                 v-on:click="saveOrUpdatePassword()"
-                v-if="!saved && isAuthenticated && $store.state.password.site !== '' && $store.state.route.path === '/'" :title="$t('Save')">
+                v-if="!saved && $store.state.password.site !== '' && $store.state.route.path === '/'" :title="$t('Save')">
             <i class="fa fa-lg fa-save pointer"></i>
           </span>
+          <router-link class="white-link pl-3" v-if="$store.state.passwords.length > 0" :to="{ name: 'exportProfiles'}" :title="$t('Export Password Profiles')">
+            <i class="fa fa-lg fa-download"></i>
+          </router-link>
           <router-link class="white-link pl-3" :to="{ name: 'importProfiles'}" :title="$t('Import Password Profiles')">
             <i class="fa fa-lg fa-upload"></i>
           </router-link>
-          <router-link class="white-link pl-3" :to="{ name: 'passwords'}" v-if="isAuthenticated" :title="$t('Saved passwords')">
+          <router-link class="white-link pl-3" :to="{ name: 'passwords'}" :title="$t('Saved passwords')">
             <i class="fa fa-lg fa-key"></i>
           </router-link>
           <router-link class="white-link pl-3" :to="{ name: 'settings'}" :title="$t('Settings')">
@@ -50,7 +53,7 @@
   </div>
 </template>
 <script type="text/ecmascript-6">
-  import {mapGetters} from 'vuex';
+  import { mapGetters, mapState } from 'vuex';
 
   export default {
     data() {
@@ -69,13 +72,17 @@
         setTimeout(() => {
           this.saved = false;
         }, 3000);
+      },
+      downloadPasswordProfiles() {
+        this.$store.dispatch('downloadPasswords');
       }
     },
     computed: {
       ...mapGetters([
         'isAuthenticated',
         'isGuest'
-      ])
+      ]),
+      ...mapState(["passwords"]),
     }
   }
 </script>

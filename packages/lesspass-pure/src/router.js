@@ -10,6 +10,7 @@ import PasswordResetConfirm from "./views/PasswordResetConfirm.vue";
 import Passwords from "./views/Passwords.vue";
 import SettingsPage from "./views/Settings.vue";
 import ImportProfiles from "./views/ImportProfiles.vue";
+import ExportProfiles from "./views/ExportProfiles.vue";
 
 Vue.use(VueRouter);
 
@@ -22,6 +23,7 @@ const routes = [
   { path: "/passwords/", name: "passwords", component: Passwords },
   { path: "/password/reset", name: "passwordReset", component: PasswordReset },
   { path: "/profiles/import", name: "importProfiles", component: ImportProfiles },
+  { path: "/profiles/export", name: "exportProfiles", component: ExportProfiles },
   {
     path: "/password/reset/confirm/:uid/:token",
     name: "passwordResetConfirm",

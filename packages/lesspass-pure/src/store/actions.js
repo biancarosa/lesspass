@@ -44,6 +44,10 @@ export const logout = ({ commit }) => {
   commit(types.RESET_PASSWORD);
 };
 
+export const setEncryptedKey = ({ commit }, { encryptedKey }) => {
+  commit(types.SET_ENCRYPTED_KEY, { encryptedKey });
+}
+
 export const getPasswords = ({ commit }, { encryptedKey }) => {
   commit(types.SET_ENCRYPTED_KEY, { encryptedKey });
   return Profile.all().then(response => {
@@ -74,12 +78,13 @@ export const saveOrUpdatePassword = ({ commit, state }) => {
     data,
     encryptedKey
   );
-  Profile.update({
-    id: state.encryptedPasswordProfilesId,
-    password_profile: encryptedPasswordProfiles
-  }).then(() => {
-    getPasswords({ commit, state }, { encryptedKey });
-  });
+  if (state.encryptedPasswordProfilesId) {
+    Profile.update({
+      id: state.encryptedPasswordProfilesId,
+      password_profile: encryptedPasswordProfiles
+    })
+  }
+  commit(types.SET_PASSWORDS, { passwords });
 };
 
 export const deletePassword = ({ commit, state }, { password }) => {
@@ -111,4 +116,8 @@ export const displayMessage = ({ commit }, payload) => {
 
 export const cleanMessage = ({ commit }) => {
   commit(types.CLEAN_MESSAGE);
+};
+
+export const loadPasswordProfiles = ({ commit }, passwords) => {
+  commit(types.SET_PASSWORDS, { passwords });
 };

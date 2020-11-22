@@ -54,9 +54,10 @@ import LessPassCrypto from "lesspass-crypto";
 export default {
   data() {
     return {
-      profile: "",
+      profiles: "",
       masterPassword: "",
       key: "",
+      email: "",
     };
   },
   components: {
@@ -68,21 +69,25 @@ export default {
         this.key,
         this.masterPassword
       );
-      const profile = LessPassCrypto.decrypt(this.profile, encryptedKey);
-      console.log(profile);
+      const passwords = JSON.parse(
+        LessPassCrypto.decrypt(this.profiles, encryptedKey)
+      );
+      this.$store.dispatch("setEncryptedKey", {
+        encryptedKey
+      });
+      this.$store.dispatch("loadPasswordProfiles", passwords);
+      this.$router.push({ name: "passwords" });
     },
     getFileContents(e) {
       var files = e.target.files || e.dataTransfer.files;
-      console.log(files);
       if (!files.length)
         return;
-      var file = e.target.files[0]; 
+      var file = e.target.fgiles[0]; 
       var reader = new FileReader();
       reader.readAsText(file,'UTF-8');
       reader.onload = readerEvent => {
         var content = JSON.parse(readerEvent.target.result);
-        console.log(content);
-        this.profile = content["profile"];
+        this.profiles = content["profiles"];
         this.key = content["key"];
       }
     }
