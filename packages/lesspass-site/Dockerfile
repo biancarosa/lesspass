@@ -3,6 +3,7 @@ LABEL maintainer="LessPass <contact@lesspass.com>"
 LABEL name="LessPass Frontend" 
 WORKDIR /opt/frontend
 COPY package.json yarn.lock ./
+RUN npm install -g gulp
 RUN yarn install
 COPY . /opt/frontend
 RUN yarn build

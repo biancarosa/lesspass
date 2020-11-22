@@ -29,8 +29,11 @@
                 v-if="!saved && isAuthenticated && $store.state.password.site !== '' && $store.state.route.path === '/'" :title="$t('Save')">
             <i class="fa fa-lg fa-save pointer"></i>
           </span>
+          <router-link class="white-link pl-3" :to="{ name: 'importProfiles'}" :title="$t('Import Password Profiles')">
+            <i class="fa fa-lg fa-upload"></i>
+          </router-link>
           <router-link class="white-link pl-3" :to="{ name: 'passwords'}" v-if="isAuthenticated" :title="$t('Saved passwords')">
-            <i class="fa  fa-lg fa-key"></i>
+            <i class="fa fa-lg fa-key"></i>
           </router-link>
           <router-link class="white-link pl-3" :to="{ name: 'settings'}" :title="$t('Settings')">
             <i class="fa fa-lg fa-cog"></i>
