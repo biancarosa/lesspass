@@ -62,6 +62,5 @@ export default {
   },
   [types.SET_ENCRYPTED_KEY](state, { encryptedKey }) {
     state.encryptedKey = encryptedKey;
-    console.log('state encrypted key', state.encryptedKey)
   }
 };
