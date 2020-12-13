@@ -114,6 +114,8 @@ div.awesomplete > ul {
 </template>
 <script type="text/ecmascript-6">
 import LessPass from "lesspass";
+import LessPassEntropy from "lesspass-entropy";
+import LessPassCrypto from "lesspass-crypto";
 import { mapGetters, mapState } from "vuex";
 import copy from "copy-text-to-clipboard";
 import RemoveAutoComplete from "../components/RemoveAutoComplete.vue";
@@ -133,7 +135,7 @@ export default {
     Options
   },
   computed: {
-    ...mapState(["password", "passwords"]),
+    ...mapState(["password", "passwords", "encryptedKey"]),
     ...mapGetters(["passwordURL"])
   },
   beforeMount() {
@@ -193,6 +195,18 @@ export default {
       const site = this.password.site;
       const login = this.password.login;
       const masterPassword = this.masterPassword;
+      console.log(this.encryptedKey);
+      if (this.encryptedKey === undefined) {
+        LessPassEntropy.generateUserKey().then(key => {
+          const encryptedKey = LessPassCrypto.encrypt(
+            key,
+            this.masterPassword
+          );
+          this.$store.dispatch("setEncryptedKey", {
+            encryptedKey
+          });
+        });
+      }
       if ((!site && !login) || !masterPassword) {
         message.error(
           this.$t(
