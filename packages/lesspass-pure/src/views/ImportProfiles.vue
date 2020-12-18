@@ -82,7 +82,7 @@ export default {
       var files = e.target.files || e.dataTransfer.files;
       if (!files.length)
         return;
-      var file = e.target.fgiles[0]; 
+      var file = e.target.files[0]; 
       var reader = new FileReader();
       reader.readAsText(file,'UTF-8');
       reader.onload = readerEvent => {
