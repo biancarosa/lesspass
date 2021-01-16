@@ -27,9 +27,9 @@ class PasswordSerializer(serializers.ModelSerializer):
         return models.Password.objects.create(user=user, **validated_data)
 
 
-class EncryptedPasswordProfilesSerializer(serializers.ModelSerializer):
+class EncryptedPasswordProfileSerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.EncryptedPasswordProfiles
+        model = models.EncryptedPasswordProfile
         fields = (
             "id",
             "password_profile",
@@ -40,7 +40,9 @@ class EncryptedPasswordProfilesSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         user = self.context["request"].user
-        return models.EncryptedPasswordProfiles.objects.create(user=user, **validated_data)
+        return models.EncryptedPasswordProfile.objects.create(
+            user=user, **validated_data
+        )
 
 
 class BackwardCompatibleTokenObtainPairSerializer(TokenObtainPairSerializer):

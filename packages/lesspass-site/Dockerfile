@@ -1,10 +1,11 @@
-FROM node:lts AS builder
+FROM node:12-alpine AS builder
 LABEL maintainer="LessPass <contact@lesspass.com>"
-LABEL name="LessPass Frontend" 
+LABEL name="LessPass Frontend"
 WORKDIR /opt/frontend
 COPY package.json yarn.lock ./
 RUN npm install -g gulp
 RUN yarn install
+RUN yarn global add gulp-cli
 COPY . /opt/frontend
 RUN yarn build
 FROM nginx:alpine
