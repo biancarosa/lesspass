@@ -49,7 +49,7 @@
 <script>
 import { mapState } from "vuex";
 import MasterPassword from "../components/MasterPassword.vue";
-import LessPassCrypto from "lesspass-crypto";
+import Encryption from "../services/encryption";
 
 export default {
   data() {
@@ -65,12 +65,12 @@ export default {
   },
   methods: {
     importPasswordProfiles() {
-      const encryptedKey = LessPassCrypto.encrypt(
+      const encryptedKey = Encryption.encrypt(
         this.key,
         this.masterPassword
       );
       const passwords = JSON.parse(
-        LessPassCrypto.decrypt(this.profiles, encryptedKey)
+        Encryption.decrypt(this.profiles, encryptedKey)
       );
       this.$store.dispatch("setEncryptedKey", {
         encryptedKey

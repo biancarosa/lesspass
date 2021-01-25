@@ -80,7 +80,7 @@ import MasterPassword from "../components/MasterPassword.vue";
 import message from "../services/message";
 import LessPassVue from "lesspass-pure/src/LessPass.vue";
 import LessPassEntropy from "lesspass-entropy";
-import LessPassCrypto from "lesspass-crypto";
+import Encryption from "../services/encryption";
 import { random } from "lodash";
 
 export default {
@@ -116,7 +116,7 @@ export default {
             User.getLoggedUserInformation().then(response => {
               if (response.data.key === null) {
                 LessPassEntropy.generateUserKey().then(key => {
-                  const encryptedKey = LessPassCrypto.encrypt(
+                  const encryptedKey = Encryption.encrypt(
                     key,
                     this.password
                   );
@@ -136,7 +136,7 @@ export default {
                       }
                     );
                     const data = JSON.stringify(allPasswords);
-                    const encryptedPasswordProfiles = LessPassCrypto.encrypt(
+                    const encryptedPasswordProfiles = Encryption.encrypt(
                       data,
                       encryptedKey
                     );
@@ -151,7 +151,7 @@ export default {
                   });
                 });
               } else {
-                const encryptedKey = LessPassCrypto.encrypt(
+                const encryptedKey = Encryption.encrypt(
                   response.data.key,
                   this.password
                 );

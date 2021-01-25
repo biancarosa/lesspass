@@ -1,7 +1,7 @@
 import Password from "../api/password";
 import Profile from "../api/profile";
 import User from "../api/user";
-import LessPassCrypto from "lesspass-crypto";
+import Encryption from "../services/encryption";
 import * as urlParser from "../services/url-parser";
 import * as types from "./mutation-types";
 import defaultPasswordProfile from "./defaultPassword";
@@ -54,7 +54,7 @@ export const getPasswords = ({ commit }, { encryptedKey }) => {
     if (response.data.results.length > 0) {
       const encryptedPasswordProfiles = response.data.results[0];
       const passwords = JSON.parse(
-        LessPassCrypto.decrypt(encryptedPasswordProfiles.password_profile, encryptedKey)
+        Encryption.decrypt(encryptedPasswordProfiles.password_profile, encryptedKey)
       );
       commit(types.LOGIN);
       commit(types.SET_PASSWORDS, { passwords });
@@ -74,7 +74,7 @@ export const saveOrUpdatePassword = ({ commit, state }) => {
   passwords.push(state.password);
   const encryptedKey = state.encryptedKey;
   const data = JSON.stringify(passwords);
-  const encryptedPasswordProfiles = LessPassCrypto.encrypt(
+  const encryptedPasswordProfiles = Encryption.encrypt(
     data,
     encryptedKey
   );
@@ -98,7 +98,7 @@ export const deletePassword = ({ commit, state }, { password }) => {
   }
   const encryptedKey = state.encryptedKey;
   const data = JSON.stringify(passwords);
-  const encryptedPasswordProfiles = LessPassCrypto.encrypt(
+  const encryptedPasswordProfiles = Encryption.encrypt(
     data,
     encryptedKey
   );
