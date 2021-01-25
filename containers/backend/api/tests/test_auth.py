@@ -60,12 +60,11 @@ class OldLoginTestCase(APITestCase):
             "password": "correct horse battery staple",
         }
         request = self.client.post("/api/tokens/auth/", data)
-        headers = {
-            "HTTP_AUTHORIZATION": "JWT {token}".format(token=request.data["token"])
-        }
+        headers = {"HTTP_AUTHORIZATION": "JWT {token}".format(token=request.data["token"])}
         request = self.client.get("/api/passwords/", **headers)
         self.assertEqual(request.status_code, 200)
-        self.assertEqual(request.data["results"][0]["login"], password.login)
+        self.assertEqual(request.data["results"][0]['login'], password.login)
+
 
     def test_nrt_get_passwords_with_bearer(self):
         user = factories.UserFactory(
@@ -77,9 +76,7 @@ class OldLoginTestCase(APITestCase):
             "password": "correct horse battery staple",
         }
         request = self.client.post("/api/auth/jwt/create/", data)
-        headers = {
-            "HTTP_AUTHORIZATION": "Bearer {token}".format(token=request.data["access"])
-        }
+        headers = {"HTTP_AUTHORIZATION": "Bearer {token}".format(token=request.data["access"])}
         request = self.client.get("/api/passwords/", **headers)
         self.assertEqual(request.status_code, 200)
-        self.assertEqual(request.data["results"][0]["login"], password.login)
+        self.assertEqual(request.data["results"][0]['login'], password.login)

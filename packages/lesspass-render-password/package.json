@@ -13,9 +13,6 @@
     "test": "jest"
   },
   "dependencies": {
-    "big-integer": "1.6.48"
-  },
-  "devDependencies": {
-    "jest": "^26.6.3"
+    "big-integer": "1.6.22"
   }
 }

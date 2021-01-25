@@ -7,8 +7,8 @@ class UserFactory(factory.DjangoModelFactory):
     class Meta:
         model = models.LessPassUser
 
-    email = factory.Sequence(lambda n: "u{0}@lesspass.com".format(n))
-    password = factory.PostGenerationMethodCall("set_password", "password")
+    email = factory.Sequence(lambda n: 'u{0}@lesspass.com'.format(n))
+    password = factory.PostGenerationMethodCall('set_password', 'password')
     is_admin = False
 
 
@@ -21,12 +21,5 @@ class PasswordFactory(factory.DjangoModelFactory):
         model = models.Password
 
     user = factory.SubFactory(UserFactory)
-    login = "admin@oslab.fr"
-    site = "lesspass.com"
-
-
-class EncryptedPasswordProfileFactory(factory.DjangoModelFactory):
-    class Meta:
-        model = models.EncryptedPasswordProfile
-
-    user = factory.SubFactory(UserFactory)
+    login = 'admin@oslab.fr'
+    site = 'lesspass.com'

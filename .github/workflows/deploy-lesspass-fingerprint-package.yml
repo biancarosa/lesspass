@@ -7,26 +7,19 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: "12"
       - name: test lesspass-fingerprint package
         run: |
-          cd packages/lesspass-fingerprint
           yarn install
-          yarn test
+          yarn workspace lesspass-fingerprint run test
 
   deploy:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     needs: test
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: "12"
       - name: deploy lesspass-fingerprint package
         run: |
           cd packages

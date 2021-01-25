@@ -32,8 +32,7 @@ describe("InputSite", () => {
     expect(input.element.value).toBe("lesspass.com");
   });
 
-  // todo fix autocomplete tests
-  describe.skip("autocomplete", function() {
+  describe("autocomplete", function() {
     describe("search", () => {
       it("filters according to site name", () => {
         const wrapper = createWrapper({
@@ -115,7 +114,7 @@ describe("InputSite", () => {
           expect(inputField(wrapper).element.value).toBe("lesspass");
         });
         it('emits a "passwordProfileSelected" with the value', () => {
-          const emitted = wrapper.findComponent(InputSite).emitted();
+          const emitted = wrapper.find(InputSite).emitted();
           const profileSelected = emitted["passwordProfileSelected"];
           expect(profileSelected.length).toBe(1);
           expect(profileSelected[0]).toEqual([
@@ -137,7 +136,7 @@ describe("InputSite", () => {
         expect(inputField(wrapper).element.value).toBe("lesspass");
       });
       it('emits a "suggestionSelected" with site value', () => {
-        const emitted = wrapper.findComponent(InputSite).emitted();
+        const emitted = wrapper.find(InputSite).emitted();
         const profileSelected = emitted["suggestionSelected"];
         expect(profileSelected.length).toBe(1);
         expect(profileSelected[0]).toEqual(["lesspass"]);

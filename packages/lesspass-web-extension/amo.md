@@ -23,9 +23,7 @@ Tested with:
 
 ## Reproduce lesspass.min.js and dist folder with sources
 
-    cd packages/lesspass-pure
     yarn install
-    yarn run build
-    cd ../../
+    yarn workspace lesspass-pure run build
     find packages/lesspass-web-extension/extension/dist/ -type f -exec md5sum {} \;
     find packages/lesspass-pure/dist -type f -exec md5sum {} \;

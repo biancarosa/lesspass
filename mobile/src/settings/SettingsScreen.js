@@ -14,18 +14,19 @@ export class SettingsScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      fingerprintIsSupported: false,
+      fingerprintIsSupported: false
     };
   }
 
   componentDidMount() {
-    TouchID.isSupported({
-      passcodeFallback: false,
-    })
+    TouchID
+      .isSupported({
+        passcodeFallback: false
+      })
       .then(() => {
         this.setState({ fingerprintIsSupported: true });
       })
-      .catch((error) => console.log(error));
+      .catch(error => console.log(error));
   }
 
   render() {
@@ -41,7 +42,7 @@ export class SettingsScreen extends Component {
       defaultUppercase,
       defaultDigits,
       defaultSymbols,
-      defaultCounter,
+      defaultCounter
     } = settings;
     return (
       <ScrollView style={{ flex: 1 }}>
@@ -49,7 +50,7 @@ export class SettingsScreen extends Component {
           <TextInputModal
             label="Default URL"
             value={lesspassDatabaseDefaultUrl}
-            onOk={(value) => setSettings({ lesspassDatabaseDefaultUrl: value })}
+            onOk={value => setSettings({ lesspassDatabaseDefaultUrl: value })}
             modalTitle="LessPass Database default URL"
           />
           <Divider />
@@ -59,7 +60,7 @@ export class SettingsScreen extends Component {
               "Use your master password in the sign in form but send encrypted password."
             }
             value={encryptMasterPassword}
-            onChange={(value) => setSettings({ encryptMasterPassword: value })}
+            onChange={value => setSettings({ encryptMasterPassword: value })}
           />
           <Divider />
         </List.Section>
@@ -68,9 +69,7 @@ export class SettingsScreen extends Component {
             isRequired={false}
             label="Login"
             value={defaultPasswordProfileLogin}
-            onOk={(value) =>
-              setSettings({ defaultPasswordProfileLogin: value })
-            }
+            onOk={value => setSettings({ defaultPasswordProfileLogin: value })}
             modalTitle="Default login"
           />
           <Divider />
@@ -78,9 +77,9 @@ export class SettingsScreen extends Component {
             label="Password length"
             value={defaultGeneratedPasswordLength}
             variant="numeric"
-            onOk={(value) => {
+            onOk={value => {
               setSettings({
-                defaultGeneratedPasswordLength: parseInt(value),
+                defaultGeneratedPasswordLength: parseInt(value)
               });
             }}
             modalTitle="Default password length"
@@ -90,9 +89,9 @@ export class SettingsScreen extends Component {
             label="Counter"
             value={defaultCounter}
             variant="numeric"
-            onOk={(value) => {
+            onOk={value => {
               setSettings({
-                defaultCounter: parseInt(value),
+                defaultCounter: parseInt(value)
               });
             }}
             modalTitle="Default counter"
@@ -102,28 +101,28 @@ export class SettingsScreen extends Component {
             label="Lowercase (a-z)"
             description={defaultLowercase ? "activated" : "deactivated"}
             value={defaultLowercase}
-            onChange={(value) => setSettings({ defaultLowercase: value })}
+            onChange={value => setSettings({ defaultLowercase: value })}
           />
           <Divider />
           <Switch
             label="Uppercase (A-Z)"
             description={defaultUppercase ? "activated" : "deactivated"}
             value={defaultUppercase}
-            onChange={(value) => setSettings({ defaultUppercase: value })}
+            onChange={value => setSettings({ defaultUppercase: value })}
           />
           <Divider />
           <Switch
             label="Numbers (0-9)"
             description={defaultDigits ? "activated" : "deactivated"}
             value={defaultDigits}
-            onChange={(value) => setSettings({ defaultDigits: value })}
+            onChange={value => setSettings({ defaultDigits: value })}
           />
           <Divider />
           <Switch
             label="Symbols (%!@)"
             description={defaultSymbols ? "activated" : "deactivated"}
             value={defaultSymbols}
-            onChange={(value) => setSettings({ defaultSymbols: value })}
+            onChange={value => setSettings({ defaultSymbols: value })}
           />
           <Divider />
         </List.Section>
@@ -138,7 +137,7 @@ export class SettingsScreen extends Component {
                     : "Keep master password locally"
                 }
                 value={keepMasterPasswordLocally}
-                onOk={(masterPassword) => {
+                onOk={masterPassword => {
                   TouchID.authenticate()
                     .then(() =>
                       setGenericPassword("masterPassword", masterPassword)
@@ -146,7 +145,7 @@ export class SettingsScreen extends Component {
                     .then(() =>
                       setSettings({ keepMasterPasswordLocally: true })
                     )
-                    .catch((error) => console.log(error));
+                    .catch(error => console.log(error));
                 }}
                 onClear={() =>
                   setSettings({ keepMasterPasswordLocally: false })
@@ -169,14 +168,17 @@ export class SettingsScreen extends Component {
 
 function mapStateToProps(state) {
   return {
-    settings: state.settings,
+    settings: state.settings
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    setSettings: (settings) => dispatch(setSettings(settings)),
+    setSettings: settings => dispatch(setSettings(settings)),
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SettingsScreen);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SettingsScreen);
