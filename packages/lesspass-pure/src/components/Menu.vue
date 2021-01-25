@@ -67,7 +67,7 @@
         this.$router.push({name: 'home'}).catch(e => {});
       },
       saveOrUpdatePassword() {
-        this.$store.dispatch('saveOrUpdatePassword');
+        this.$store.dispatch('saveOrUpdatePassword', { password: this.$store.state.password });
         this.saved = true;
         setTimeout(() => {
           this.saved = false;

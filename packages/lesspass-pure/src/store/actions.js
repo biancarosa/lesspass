@@ -65,13 +65,13 @@ export const getPasswords = ({ commit }, { encryptedKey }) => {
 };
 
 
-export const saveOrUpdatePassword = ({ commit, state }) => {
-  const site = state.password.site;
-  const login = state.password.login;
+export const saveOrUpdatePassword = ({ commit, state }, payload) => {
+  const site = payload.password.site;
+  const login = payload.password.login;
   let passwords = state.passwords.filter(password => {
     return password.site !== site && password.login !== login;
   });
-  passwords.push(state.password);
+  passwords.push(payload.password);
   const encryptedKey = state.encryptedKey;
   const data = JSON.stringify(passwords);
   const encryptedPasswordProfiles = Encryption.encrypt(

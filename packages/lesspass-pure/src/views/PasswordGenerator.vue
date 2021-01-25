@@ -195,7 +195,6 @@ export default {
       const site = this.password.site;
       const login = this.password.login;
       const masterPassword = this.masterPassword;
-      console.log(this.encryptedKey);
       if (this.encryptedKey === undefined) {
         LessPassEntropy.generateUserKey().then(key => {
           const encryptedKey = Encryption.encrypt(
