@@ -29,7 +29,7 @@
                 :title="$t('Generate Password')">
             <i class="fa fa-lg fa-plus pointer"></i>
           </span>
-          <span class="white-link"
+          <span class="white-link pl-3"
                 v-on:click="saveOrUpdatePassword()"
                 v-if="!saved && $store.state.password.site !== '' && $store.state.route.path === '/'" :title="$t('Save')">
             <i class="fa fa-lg fa-save pointer"></i>
