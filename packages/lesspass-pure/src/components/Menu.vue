@@ -25,6 +25,11 @@
             <small><i class="fa fa-lg fa-check pl-3"></i> saved</small>
           </span>
           <span class="white-link"
+                v-on:click="fullReload()"
+                :title="$t('Generate Password')">
+            <i class="fa fa-lg fa-plus pointer"></i>
+          </span>
+          <span class="white-link"
                 v-on:click="saveOrUpdatePassword()"
                 v-if="!saved && $store.state.password.site !== '' && $store.state.route.path === '/'" :title="$t('Save')">
             <i class="fa fa-lg fa-save pointer"></i>
@@ -44,9 +49,9 @@
           <router-link class="white-link pl-3" :to="{ name: 'myaccount'}" v-if="isAuthenticated" :title="$t('My Account')">
             <i class="fa fa-lg fa-user pointer"></i>
           </router-link>
-          <router-link class="white-link pl-3" :to="{ name: 'login'}" v-if="isGuest" :title="$t('Sign In')">
+        <!--  <router-link class="white-link pl-3" :to="{ name: 'login'}" v-if="isGuest" :title="$t('Sign In')">
             <i class="fa fa-lg fa-sign-in pointer"></i>
-          </router-link>
+          </router-link> -->
         </div>
       </div>
     </div>
