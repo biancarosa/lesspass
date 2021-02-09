@@ -64,13 +64,22 @@ export const getPasswords = ({ commit }, { encryptedKey }) => {
   }).catch(() => logout({ commit }));;
 };
 
+const getPasswordsDifferentFromPassword = (passwords, password) => {
+  const site = password.site;
+  const login = password.login;
+  return passwords.filter(password => {
+  if (password.site && site) {
+      if (password.login && login) {
+          return password.site !== site && password.login !== login;
+      }
+      return password.site !== site;
+    }
+    return password;
+  });
+}
 
 export const saveOrUpdatePassword = ({ commit, state }, payload) => {
-  const site = payload.password.site;
-  const login = payload.password.login;
-  let passwords = state.passwords.filter(password => {
-    return password.site !== site && password.login !== login;
-  });
+  let passwords = getPasswordsDifferentFromPassword(state.passwords, payload.password);
   passwords.push(payload.password);
   const encryptedKey = state.encryptedKey;
   const data = JSON.stringify(passwords);
@@ -88,11 +97,7 @@ export const saveOrUpdatePassword = ({ commit, state }, payload) => {
 };
 
 export const deletePassword = ({ commit, state }, { password }) => {
-  const site = password.site;
-  const login = password.login;
-  let passwords = state.passwords.filter(password => {
-    return password.site !== site && password.login !== login;
-  });
+  let passwords = getPasswordsDifferentFromPassword(state. passwords, payload.password);
   if (state.password && state.password.site === site && state.password.login == login) {
     state.password = Object.assign({}, state.defaultPassword);
   }
