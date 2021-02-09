@@ -31,7 +31,7 @@
           </span>
           <span class="white-link pl-3"
                 v-on:click="saveOrUpdatePassword()"
-                v-if="!saved && $store.state.password.site !== '' && $store.state.route.path === '/'" :title="$t('Save')">
+                v-if="!saved && encryptedKey && $store.state.password.site !== '' && $store.state.route.path === '/'" :title="$t('Save')">
             <i class="fa fa-lg fa-save pointer"></i>
           </span>
           <router-link class="white-link pl-3" v-if="$store.state.passwords.length > 0" :to="{ name: 'exportProfiles'}" :title="$t('Export Password Profiles')">
@@ -87,7 +87,7 @@
         'isAuthenticated',
         'isGuest'
       ]),
-      ...mapState(["passwords"]),
+      ...mapState(["passwords", "encryptedKey"]),
     }
   }
 </script>

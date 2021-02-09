@@ -14,7 +14,8 @@ const state = {
   passwords: [],
   message: "",
   defaultPassword: defaultPassword,
-  showOptions: false
+  showOptions: false,
+  encryptedKey: undefined
 };
 
 export default new Vuex.Store({
