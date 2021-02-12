@@ -97,8 +97,8 @@ export const saveOrUpdatePassword = ({ commit, state }, payload) => {
 };
 
 export const deletePassword = ({ commit, state }, { password }) => {
-  let passwords = getPasswordsDifferentFromPassword(state. passwords, password);
-  if (state.password && state.password.site === site && state.password.login == login) {
+  let passwords = getPasswordsDifferentFromPassword(state.passwords, password);
+  if (state.password && state.password.site === password.site && state.password.login == password.login) {
     state.password = Object.assign({}, state.defaultPassword);
   }
   const encryptedKey = state.encryptedKey;
