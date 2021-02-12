@@ -107,12 +107,13 @@ export const deletePassword = ({ commit, state }, { password }) => {
     data,
     encryptedKey
   );
-  Profile.update({
-    id: state.encryptedPasswordProfilesId,
-    password_profile: encryptedPasswordProfiles
-  }).then(() => {
-    getPasswords({ commit, state }, { encryptedKey });
-  });
+  if (state.encryptedPasswordProfilesId) {
+    Profile.update({
+      id: state.encryptedPasswordProfilesId,
+      password_profile: encryptedPasswordProfiles
+    })
+  }
+  commit(types.SET_PASSWORDS, { passwords });
 };
 
 export const displayMessage = ({ commit }, payload) => {
