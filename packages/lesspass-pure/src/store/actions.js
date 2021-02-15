@@ -67,14 +67,14 @@ export const getPasswords = ({ commit }, { encryptedKey }) => {
 const getPasswordsDifferentFromPassword = (passwords, password) => {
   const site = password.site;
   const login = password.login;
-  return passwords.filter(password => {
-  if (password.site && site) {
-      if (password.login && login) {
-          return password.site !== site && password.login !== login;
+  return passwords.filter(pwd => {
+  if (pwd.site && site) {
+      if (pwd.login && login) {
+          return pwd.site !== site || pwd.login !== login;
       }
-      return password.site !== site;
+      return pwd.site !== site;
     }
-    return password;
+    return false;
   });
 }
 
