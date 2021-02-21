@@ -18,7 +18,7 @@
     <div class="card-header" v-bind:class="{ 'text-white bg-dark': isGuest}">
       <div class="row">
         <div class="col-4">
-          <span id="title" v-on:click="fullReload()" class="white-link pointer">LessPass</span>
+          <span id="title" v-on:click="fullReload()" class="white-link pointer">LessPass Offline</span>
         </div>
         <div class="col-8 text-right">
           <span v-if="saved && isAuthenticated">

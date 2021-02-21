@@ -2,23 +2,6 @@
   <div>
     <h5>{{$t('Export Password Profiles')}}</h5>
     <form id="lesspass-options-form" novalidate v-on:submit.prevent="exportPasswordProfiles">
-      <div class="form-group row">
-        <div class="col-12">
-          <div class="inner-addon left-addon">
-            <i class="fa fa-user"></i>
-            <input
-              id="email"
-              class="form-control"
-              name="username"
-              type="email"
-              autocapitalize="none"
-              v-bind:placeholder="$t('Email')"
-              required
-              v-model="email"
-            />
-          </div>
-        </div>
-      </div>
       <div class="form-group mb-2">
         <master-password
           v-model="masterPassword"
@@ -43,7 +26,6 @@ export default {
   data() {
     return {
       masterPassword: "",
-      email: "",
     };
   },
   computed: {
@@ -65,7 +47,6 @@ export default {
         key: key
       };
       const fileContent = JSON.stringify(content);
-      console.log(fileContent);
 
       const e = document.createElement('a');
       e.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(fileContent));
